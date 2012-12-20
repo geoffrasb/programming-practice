@@ -2,16 +2,16 @@
   (syntax-rules ()
     ((rec x v)
      (letrec ((x v)) x))))
-
 (define (1- x) (- x 1))
 (define (1+ x) (+ x 1))
 (define (call/cc a) (call-with-current-continuation a))
-
 (define gensym generate-uninterned-symbol)
-
-
-(define (identity x) x)
-(define (single a) (if ((and (list? a) (= 1 (length a))) #t #f))
+(define (range a b)
+  (if (< a b)
+    ((rec f (lambda (x) (if (> x b) '() (cons x (f (+ x 1)))))) a)
+    ((rec f (lambda (x) (if (< x b) '() (cons x (f (- x 1)))))) a)))
+(define (id x) x)
+(define (single a) (if (and (list? a) (= 1 (length a))) #t #f))
 (define (zipwith f lst1 lst2)
   (if (or (null? lst1)
           (null? lst2))
@@ -47,6 +47,17 @@
                        (self (list states))))))
     self))
 
+(define (permute-take lst take)
+  (if (<= take 1) (map list lst)
+    ((rec f (lambda (lt count terminate)
+              (if (= count terminate)
+                '()
+                (append (map (lambda (x) (cons (car lt) x))
+                             (permute-take (cdr lt) (- take 1)))
+                        (f (append (cdr lt) (list (car lt)))
+                           (+ 1 count)
+                           terminate)))))
+     lst 0 (length lst))))
 
 
 ; experimental area ---------------------------------
