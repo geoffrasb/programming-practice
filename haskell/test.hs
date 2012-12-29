@@ -1,5 +1,1 @@
-
-a = (do j <- [1..]
-        return
-        (do i <- [1,2]
-            return (i,j)))
+data Testing = T_const [Int] deriving (Show)

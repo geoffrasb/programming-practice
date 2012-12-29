@@ -1,0 +1,26 @@
+# Loading modules
+
+import Mod
+    load all function in the module
+import Mod ()
+    (load nothing)
+import (x,y)
+    load x,y
+import Mod hiding (x,y)
+    load functions excluding x,y
+import Mod as Foo (x,y)
+    use the name Foo but not Mod to identify the module
+
+import qualified Mod (x,y)
+import qualified Mod as Foo (x,y)
+import qualified Mod hiding (x,y)
+
+
+# Making modules
+-- in the first line of the .hs file:
+module Mod
+( func1
+, func2
+) where
+ --functions' definition
+
