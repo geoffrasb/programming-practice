@@ -1,4 +1,11 @@
 import Data.Char
+
+{-
+compilation:
+$ ghc --make file
+
+-}
+
 -- let binding in 'do' do not have 'in' keyword
 prog1 = do 
     putStrLn "What's your first name?"
@@ -36,3 +43,15 @@ main = do
     rs <- sequence [getLine,getLine,getLine]
     print rs
     
+sequence (map print [1,2,3])
+--equals to
+mapM print [1,2,3]
+mapM_ print [1,2,3] --see :t mapM_
+
+prog4 = do
+    corlors <- forM [1,2,3,4] (\a -> do
+        putStrLn $ "Which color do you associate with the number " ++ show a ++ "?"
+        color <- getLine
+        return color)
+    putStrLn "The colors that you associate with 1, 2, 3, and 4 are: "
+    mapM_ putStrLn colors

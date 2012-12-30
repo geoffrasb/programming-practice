@@ -40,6 +40,9 @@ data Person = Person { firstName :: String
  - Person {firstName="xxx" , lastName="yyy" ...}
  -
  -}
+{- pattern matching could be partial listed
+  func all@Person{firstName="xxx"} = ...
+-}
 
 
 ------------ type param
