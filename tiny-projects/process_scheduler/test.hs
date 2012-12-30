@@ -1,3 +1,4 @@
+import Utils
 data TS = TS { a::Int
              , b::Int} deriving (Show)
 
