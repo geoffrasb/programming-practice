@@ -1,0 +1,16 @@
+(define (single lst) (= (length lst) 1))
+(define (qsort f lst)
+  (cond
+    ((null? lst) '())
+    ((single lst) lst)
+    (#t 
+     (let ((pivot (car lst)))
+       ((rec g (lambda (rest sl bl)
+                 (if (null? rest)
+                   (append (qsort f sl) (list pivot) (qsort f bl))
+                   (if (f (car rest) pivot)
+                     (g (cdr rest) sl (cons (car rest) bl))
+                     (g (cdr rest) (cons (car rest) sl) bl)))))
+        (cdr lst)
+        '()
+        '())))))
